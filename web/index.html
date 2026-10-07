@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DocSearch</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%226.5%22 cy=%226.5%22 r=%224.5%22 fill=%22none%22 stroke=%22%232f6fde%22 stroke-width=%222%22/%3E%3Cpath d=%22M10 10l4.5 4.5%22 stroke=%22%232f6fde%22 stroke-width=%222.2%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --text: #1d2330; --muted: #677085; --border: #dfe3ea;
+    --accent: #2f6fde; --accent-text: #ffffff; --accent-soft: #e6eefc;
+    --mark: #ffe58a; --mark-text: #1d2330; --danger: #c23b3b; --row-hover: #f2f5fa;
+    --shadow: 0 1px 2px rgba(20, 30, 50, .06), 0 4px 16px rgba(20, 30, 50, .06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171d; --panel: #1c2028; --text: #e4e7ee; --muted: #9098aa; --border: #2e3440;
+      --accent: #5b8ff0; --accent-text: #0e1320; --accent-soft: #233150;
+      --mark: #8a6d10; --mark-text: #fff6d5; --danger: #f07878; --row-hover: #232834;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+    }
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: -.01em; }
+  .tagline { color: var(--muted); margin: 0 0 20px; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); }
+  form.panel { padding: 18px; display: grid; gap: 14px; }
+  label.field { display: grid; gap: 6px; font-weight: 600; font-size: 13px; color: var(--muted); }
+  .row { display: flex; gap: 8px; }
+  input[type=text] {
+    flex: 1; min-width: 0; padding: 10px 12px; font: inherit; color: var(--text);
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  }
+  input[type=text]:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  button {
+    font: inherit; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--panel); color: var(--text); cursor: pointer; white-space: nowrap;
+  }
+  button:hover { background: var(--row-hover); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 600; min-width: 96px; }
+  button.primary:hover { filter: brightness(1.08); }
+  button.primary.stop { background: var(--danger); border-color: var(--danger); }
+  button.small { padding: 4px 10px; font-size: 13px; }
+  button:disabled { opacity: .5; cursor: default; }
+  .options { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; }
+  .options .group { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+  .options .title { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .check { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; user-select: none; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border: 1px solid var(--border);
+          border-radius: 999px; cursor: pointer; user-select: none; font-size: 14px; }
+  .chip input { display: none; }
+  .chip:has(input:checked) { background: var(--accent-soft); border-color: var(--accent); }
+  .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+  .chip:has(input:checked) .dot { background: var(--accent); }
+  .note { font-size: 13px; color: var(--muted); }
+  .note.warn { color: var(--danger); }
+
+  .status { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+            margin: 22px 2px 10px; color: var(--muted); min-height: 30px; }
+  .status .tools { display: flex; gap: 6px; }
+  .spinner { display: inline-block; width: 12px; height: 12px; margin-right: 8px; vertical-align: -1px;
+             border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .results { display: grid; gap: 10px; }
+  details.file { overflow: hidden; }
+  details.file > summary {
+    list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+  }
+  details.file > summary::-webkit-details-marker { display: none; }
+  details.file > summary:hover { background: var(--row-hover); }
+  .caret { width: 0; height: 0; border-left: 5px solid var(--muted); border-top: 4px solid transparent;
+           border-bottom: 4px solid transparent; transition: transform .15s; flex: none; }
+  details[open] > summary .caret { transform: rotate(90deg); }
+  .badge { font-size: 11px; font-weight: 700; letter-spacing: .03em; padding: 2px 7px; border-radius: 5px;
+           flex: none; text-transform: uppercase; color: #fff; }
+  .badge.pdf { background: #d1453b; } .badge.word { background: #2b5fb9; } .badge.excel { background: #1f8a4c; }
+  .badge.powerpoint { background: #d0632a; } .badge.text { background: #6b7385; }
+  .fname { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fdir { color: var(--muted); font-weight: 400; }
+  .count { margin-left: auto; flex: none; font-size: 13px; color: var(--muted); }
+  .factions { display: flex; gap: 6px; flex: none; }
+  ul.hits { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
+  ul.hits li { display: grid; grid-template-columns: 120px 1fr; gap: 12px; padding: 7px 14px 7px 38px;
+               border-bottom: 1px solid var(--border); }
+  ul.hits li:last-child { border-bottom: 0; }
+  .loc { color: var(--muted); font: 12px/1.9 ui-monospace, SFMono-Regular, Consolas, monospace; }
+  .snippet { overflow-wrap: anywhere; }
+  mark { background: var(--mark); color: var(--mark-text); border-radius: 3px; padding: 0 1px; }
+  .empty { text-align: center; color: var(--muted); padding: 40px 16px; }
+  details.skipped { margin-top: 18px; padding: 10px 14px; color: var(--muted); font-size: 14px; }
+  details.skipped summary { cursor: pointer; }
+  details.skipped ul { margin: 8px 0 0; padding-left: 18px; }
+  .error-box { margin-top: 14px; padding: 10px 14px; border: 1px solid var(--danger); color: var(--danger); border-radius: 8px; }
+
+  dialog { border: 1px solid var(--border); border-radius: 12px; padding: 0; width: min(620px, calc(100vw - 32px));
+           background: var(--panel); color: var(--text); box-shadow: var(--shadow); }
+  dialog::backdrop { background: rgba(10, 15, 25, .45); }
+  .dlg-head { padding: 14px 16px; border-bottom: 1px solid var(--border); display: grid; gap: 10px; }
+  .dlg-head h2 { margin: 0; font-size: 16px; }
+  .crumb { font: 13px ui-monospace, SFMono-Regular, Consolas, monospace; color: var(--muted); overflow-wrap: anywhere; }
+  .dlg-list { height: 340px; overflow-y: auto; padding: 6px; }
+  .dlg-list button { display: flex; width: 100%; text-align: left; border: 0; background: none; padding: 7px 10px; gap: 8px; }
+  .dlg-list button:hover { background: var(--row-hover); }
+  .folder-icon { width: 16px; height: 12px; margin-top: 4px; border-radius: 2px; background: #e2b13c; position: relative; flex: none; }
+  .folder-icon::before { content: ""; position: absolute; top: -3px; left: 0; width: 7px; height: 4px; border-radius: 2px 2px 0 0; background: #e2b13c; }
+  .dlg-foot { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 8px; }
+
+  @media (max-width: 640px) {
+    ul.hits li { grid-template-columns: 1fr; gap: 0; padding-left: 14px; }
+    .factions button.folder-btn { display: none; }
+    .row { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>DocSearch</h1>
+  <p class="tagline">Find a word inside every document in a folder, including subfolders.</p>
+
+  <form class="panel" id="form" autocomplete="off">
+    <label class="field">Folder
+      <div class="row">
+        <input type="text" id="folder" placeholder="e.g. C:\Users\me\Documents" spellcheck="false">
+        <button type="button" id="browse">Browse…</button>
+      </div>
+    </label>
+    <label class="field">Search for
+      <div class="row">
+        <input type="text" id="word" placeholder="Word or phrase" spellcheck="false">
+        <button type="submit" class="primary" id="go">Search</button>
+      </div>
+    </label>
+    <div class="options">
+      <div class="group">
+        <label class="check"><input type="checkbox" id="case"> Match case</label>
+        <label class="check"><input type="checkbox" id="whole"> Whole word</label>
+        <label class="check"><input type="checkbox" id="regex"> Regular expression</label>
+      </div>
+    </div>
+    <div class="options">
+      <span class="title">File types</span>
+      <div class="group" id="types"></div>
+    </div>
+    <div class="note warn" id="pdf-note" hidden>PDF search is off: run <code>pip install pypdf</code>, then restart DocSearch.</div>
+  </form>
+
+  <div class="status">
+    <span id="status">Choose a folder, type a word and press Search.</span>
+    <span class="tools" id="tools" hidden>
+      <button class="small" id="expand">Expand all</button>
+      <button class="small" id="collapse">Collapse all</button>
+    </span>
+  </div>
+  <div class="results" id="results"></div>
+  <div id="skipped-slot"></div>
+</div>
+
+<dialog id="picker">
+  <div class="dlg-head">
+    <h2>Choose a folder</h2>
+    <div class="crumb" id="crumb"></div>
+    <div class="row" id="picker-nav">
+      <button type="button" class="small" id="up">↑ Up</button>
+      <button type="button" class="small" id="home">Home</button>
+      <span id="roots" class="row"></span>
+    </div>
+  </div>
+  <div class="dlg-list" id="dlg-list"></div>
+  <div class="dlg-foot">
+    <button type="button" id="cancel">Cancel</button>
+    <button type="button" class="primary" id="choose">Select this folder</button>
+  </div>
+</dialog>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const store = {
+  get(key) { try { return localStorage.getItem(key); } catch { return null; } },
+  set(key, value) { try { localStorage.setItem(key, value); } catch { /* storage unavailable */ } },
+};
+const EXT_TYPE = {};
+let controller = null;
+
+function el(tag, attrs = {}, ...children) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") node.className = v;
+    else if (k.startsWith("on")) node.addEventListener(k.slice(2), v);
+    else node.setAttribute(k, v);
+  }
+  for (const child of children) node.append(child);
+  return node;
+}
+
+/* ---------- setup ---------- */
+async function init() {
+  const info = await (await fetch("/api/info")).json();
+  const saved = JSON.parse(store.get("types") || "null");
+  for (const t of info.types) {
+    for (const ext of t.extensions) EXT_TYPE[ext] = t.id;
+    const off = (t.id === "pdf" && !info.pdf);
+    const box = el("input", { type: "checkbox", value: t.id });
+    box.checked = !off && (!saved || saved.includes(t.id));
+    box.disabled = off;
+    box.addEventListener("change", () => store.set("types", JSON.stringify(selectedTypes())));
+    $("types").append(el("label", { class: "chip", title: t.extensions.join(" ") }, box, el("span", { class: "dot" }), t.label));
+  }
+  $("pdf-note").hidden = info.pdf;
+  $("folder").value = store.get("folder") || "";
+  for (const id of ["case", "whole", "regex"]) {
+    $(id).checked = store.get(id) === "1";
+    $(id).addEventListener("change", () => store.set(id, $(id).checked ? "1" : "0"));
+  }
+  ($("folder").value ? $("word") : $("folder")).focus();
+}
+
+const selectedTypes = () => [...$("types").querySelectorAll("input:checked")].map((b) => b.value);
+
+/* ---------- search ---------- */
+$("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (controller) { controller.abort(); return; }
+  runSearch();
+});
+
+async function runSearch() {
+  const folder = $("folder").value.trim();
+  const params = new URLSearchParams({
+    folder, q: $("word").value, types: selectedTypes().join(","),
+    case: $("case").checked ? "1" : "0", whole: $("whole").checked ? "1" : "0", regex: $("regex").checked ? "1" : "0",
+  });
+  store.set("folder", folder);
+  $("results").replaceChildren();
+  $("skipped-slot").replaceChildren();
+  $("tools").hidden = true;
+
+  const state = { groups: new Map(), skipped: [], matches: 0, scanned: 0, stopped: false };
+  controller = new AbortController();
+  setBusy(true);
+  setStatus("Starting…", true);
+
+  try {
+    const res = await fetch("/api/search?" + params, { signal: controller.signal });
+    if (!res.ok) {
+      const { error } = await res.json().catch(() => ({ error: res.statusText }));
+      showError(error);
+      return;
+    }
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let lastPaint = 0;
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split("\n");
+      buffer = lines.pop();
+      for (const line of lines) if (line) handleEvent(JSON.parse(line), state);
+      if (performance.now() - lastPaint > 120) {
+        lastPaint = performance.now();
+        setStatus(`Searching… ${state.scanned} files checked · ${summary(state)}`, true);
+      }
+    }
+  } catch (err) {
+    if (err.name === "AbortError") state.stopped = true;
+    else return showError("Lost connection to DocSearch. Is the Python window still open?");
+  } finally {
+    controller = null;
+    setBusy(false);
+  }
+  finish(state);
+}
+
+function handleEvent(ev, state) {
+  if (ev.type === "progress") state.scanned = ev.scanned;
+  else if (ev.type === "match") addMatch(ev, state);
+  else if (ev.type === "skipped") state.skipped.push(ev);
+  else if (ev.type === "done") { state.scanned = ev.scanned; state.limited = ev.limited; }
+}
+
+function summary(state) {
+  const files = state.groups.size;
+  return `${state.matches} match${state.matches === 1 ? "" : "es"} in ${files} file${files === 1 ? "" : "s"}`;
+}
+
+function finish(state) {
+  const stopped = state.limited ? " — stopped at the result limit, try a more specific word"
+    : state.stopped ? " (stopped)" : "";
+  setStatus(`${summary(state)} · ${state.scanned} files checked${stopped}`);
+  if (!state.groups.size) {
+    $("results").append(el("div", { class: "panel empty" }, state.scanned ? "No matches found." : "No documents of the selected types in this folder."));
+  }
+  $("tools").hidden = state.groups.size < 2;
+  if (state.skipped.length) {
+    const list = el("ul");
+    for (const s of state.skipped) list.append(el("li", {}, el("strong", {}, s.rel), " — " + s.message));
+    $("skipped-slot").append(el("details", { class: "panel skipped" },
+      el("summary", {}, `${state.skipped.length} file${state.skipped.length === 1 ? "" : "s"} could not be read`), list));
+  }
+}
+
+function addMatch(ev, state) {
+  state.matches++;
+  let group = state.groups.get(ev.path);
+  if (!group) {
+    const ext = (ev.rel.match(/\.[^.\\/]+$/) || [""])[0].toLowerCase();
+    const type = EXT_TYPE[ext] || "text";
+    const sep = Math.max(ev.rel.lastIndexOf("/"), ev.rel.lastIndexOf("\\"));
+    const count = el("span", { class: "count" });
+    const hits = el("ul", { class: "hits" });
+    const actions = el("span", { class: "factions" },
+      el("button", { type: "button", class: "small", title: "Open the file", onclick: (e) => openPath(e, ev.path, "file") }, "Open"),
+      el("button", { type: "button", class: "small folder-btn", title: "Open the folder containing this file", onclick: (e) => openPath(e, ev.path, "folder") }, "Show folder"));
+    const name = el("span", { class: "fname", title: ev.path },
+      el("span", { class: "fdir" }, sep >= 0 ? ev.rel.slice(0, sep + 1) : ""), sep >= 0 ? ev.rel.slice(sep + 1) : ev.rel);
+    const details = el("details", { class: "panel file", open: "" },
+      el("summary", {}, el("span", { class: "caret" }), el("span", { class: `badge ${type}` }, ext.slice(1) || "txt"), name, count, actions),
+      hits);
+    group = { count, hits, n: 0 };
+    state.groups.set(ev.path, group);
+    $("results").append(details);
+  }
+  group.n++;
+  group.count.textContent = `${group.n} match${group.n === 1 ? "" : "es"}`;
+  group.hits.append(el("li", {}, el("span", { class: "loc" }, ev.location), highlight(ev.snippet, ev.highlights)));
+}
+
+function highlight(text, spans) {
+  const node = el("span", { class: "snippet" });
+  let pos = 0;
+  for (const [start, end] of spans) {
+    if (start < pos) continue;
+    node.append(text.slice(pos, start), el("mark", {}, text.slice(start, end)));
+    pos = end;
+  }
+  node.append(text.slice(pos));
+  return node;
+}
+
+async function openPath(event, path, what) {
+  event.preventDefault();
+  event.stopPropagation();
+  const res = await fetch("/api/open", {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ path, what }),
+  });
+  if (!res.ok) alert((await res.json().catch(() => ({}))).error || "Could not open the file.");
+}
+
+function setBusy(busy) {
+  $("go").textContent = busy ? "Stop" : "Search";
+  $("go").classList.toggle("stop", busy);
+}
+
+function setStatus(text, spinning = false) {
+  $("status").replaceChildren(...(spinning ? [el("span", { class: "spinner" })] : []), text);
+}
+
+function showError(message) {
+  setStatus("");
+  $("results").replaceChildren(el("div", { class: "error-box" }, message));
+}
+
+$("expand").addEventListener("click", () => document.querySelectorAll("details.file").forEach((d) => d.open = true));
+$("collapse").addEventListener("click", () => document.querySelectorAll("details.file").forEach((d) => d.open = false));
+
+/* ---------- folder picker ---------- */
+let pickerPath = null, pickerParent = null, pickerHome = null;
+
+$("browse").addEventListener("click", () => {
+  $("picker").showModal();
+  loadFolder($("folder").value.trim());
+});
+$("cancel").addEventListener("click", () => $("picker").close());
+$("up").addEventListener("click", () => pickerParent && loadFolder(pickerParent));
+$("home").addEventListener("click", () => loadFolder(pickerHome || ""));
+$("choose").addEventListener("click", () => {
+  if (pickerPath) { $("folder").value = pickerPath; store.set("folder", pickerPath); }
+  $("picker").close();
+  $("word").focus();
+});
+
+async function loadFolder(path) {
+  const list = $("dlg-list");
+  let res = await fetch("/api/folders?" + new URLSearchParams({ path }));
+  if (!res.ok && path) res = await fetch("/api/folders?path=");  // typed path doesn't exist: start at home
+  const data = await res.json();
+  if (!res.ok) { list.replaceChildren(el("div", { class: "empty" }, data.error)); return; }
+  pickerPath = data.path; pickerParent = data.parent; pickerHome = data.home;
+  $("crumb").textContent = data.path;
+  $("up").disabled = !data.parent;
+  $("roots").replaceChildren(...(data.roots.length > 1
+    ? data.roots.map((r) => el("button", { type: "button", class: "small", onclick: () => loadFolder(r) }, r))
+    : []));
+  list.replaceChildren(...(data.folders.length
+    ? data.folders.map((f) => el("button", { type: "button", onclick: () => loadFolder(f.path) },
+        el("span", { class: "folder-icon" }), f.name))
+    : [el("div", { class: "empty" }, "No subfolders here.")]));
+  list.scrollTop = 0;
+}
+
+init();
+</script>
+</body>
+</html>
