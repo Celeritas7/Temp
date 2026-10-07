@@ -54,10 +54,12 @@
   .check { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; user-select: none; }
   .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border: 1px solid var(--border);
           border-radius: 999px; cursor: pointer; user-select: none; font-size: 14px; }
-  .chip input { display: none; }
-  .chip:has(input:checked) { background: var(--accent-soft); border-color: var(--accent); }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+  .chip.on { background: var(--accent-soft); border-color: var(--accent); }
   .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
-  .chip:has(input:checked) .dot { background: var(--accent); }
+  .chip.on .dot { background: var(--accent); }
+  .chip:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; }
   .note { font-size: 13px; color: var(--muted); }
   .note.warn { color: var(--danger); }
 
@@ -209,8 +211,13 @@ async function init() {
     const box = el("input", { type: "checkbox", value: t.id });
     box.checked = !off && (!saved || saved.includes(t.id));
     box.disabled = off;
-    box.addEventListener("change", () => store.set("types", JSON.stringify(selectedTypes())));
-    $("types").append(el("label", { class: "chip", title: t.extensions.join(" ") }, box, el("span", { class: "dot" }), t.label));
+    const chip = el("label", { class: "chip", title: t.extensions.join(" ") }, box, el("span", { class: "dot" }), t.label);
+    chip.classList.toggle("on", box.checked);
+    box.addEventListener("change", () => {
+      chip.classList.toggle("on", box.checked);
+      store.set("types", JSON.stringify(selectedTypes()));
+    });
+    $("types").append(chip);
   }
   $("pdf-note").hidden = info.pdf;
   $("folder").value = store.get("folder") || "";

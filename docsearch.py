@@ -184,6 +184,8 @@ def search_folder(folder, pattern, on_match=None, on_error=None, on_file=None, s
                     matches.append(match)
                     if on_match:
                         on_match(match)
+                    if stop_event is not None and stop_event.is_set():
+                        break
         except (OSError, ExtractionError) as exc:
             if on_error:
                 on_error(path, str(exc))

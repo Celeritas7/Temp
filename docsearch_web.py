@@ -29,6 +29,11 @@ RUNNABLE_EXTENSIONS = {".bat", ".ps1", ".sh", ".js", ".py", ".rb", ".php"}
 TYPE_LABELS = {"pdf": "PDF", "word": "Word", "excel": "Excel", "powerpoint": "PowerPoint", "text": "Text & code"}
 
 
+def _utf16_index(text, index):
+    """Convert a Python string index to a JavaScript (UTF-16) string index."""
+    return len(text[:index].encode("utf-16-le")) // 2
+
+
 def _pdf_available():
     try:
         import pypdf  # noqa: F401
@@ -194,7 +199,8 @@ class Handler(BaseHTTPRequestHandler):
             count[0] += 1
             if count[0] >= MAX_MATCHES:
                 stop.set()
-            spans = [[m.start(), m.end()] for m in pattern.finditer(match.snippet) if m.end() > m.start()]
+            spans = [[_utf16_index(match.snippet, m.start()), _utf16_index(match.snippet, m.end())]
+                     for m in pattern.finditer(match.snippet) if m.end() > m.start()]
             send({"type": "match", "path": match.path, "rel": rel(match.path),
                   "location": match.location, "snippet": match.snippet, "highlights": spans})
 
