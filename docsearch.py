@@ -2,8 +2,9 @@
 """DocSearch - find a word inside every document in a folder.
 
 Searches plain-text files (txt, md, csv, json, code, ...), Office documents
-(docx, xlsx, pptx), OpenDocument files (odt, ods, odp) and PDFs (needs the
-optional `pypdf` package). Subfolders are searched too.
+(docx, xlsx, pptx), OpenDocument files (odt, ods, odp), STEP CAD models
+(step, stp) and PDFs (needs the optional `pypdf` package). Subfolders are
+searched too.
 
 Usage:
     python docsearch.py                      # open the website (same as docsearch_web.py)
@@ -23,6 +24,7 @@ TEXT_EXTENSIONS = {
     ".xml", ".html", ".htm", ".yaml", ".yml", ".ini", ".cfg", ".conf", ".toml",
     ".py", ".js", ".ts", ".java", ".c", ".h", ".cpp", ".cs", ".go", ".rb",
     ".php", ".sh", ".bat", ".ps1", ".sql", ".css", ".rtf", ".tex",
+    ".step", ".stp",  # STEP CAD models are plain text; part names sit in PRODUCT(...) lines
 }
 OFFICE_EXTENSIONS = {".docx", ".xlsx", ".pptx", ".odt", ".ods", ".odp"}
 PDF_EXTENSIONS = {".pdf"}
@@ -34,7 +36,8 @@ FILE_TYPES = {
     "word": {".docx", ".odt", ".rtf"},
     "excel": {".xlsx", ".ods", ".csv", ".tsv"},
     "powerpoint": {".pptx", ".odp"},
-    "text": TEXT_EXTENSIONS - {".rtf", ".csv", ".tsv"},
+    "cad": {".step", ".stp"},
+    "text": TEXT_EXTENSIONS - {".rtf", ".csv", ".tsv", ".step", ".stp"},
 }
 
 

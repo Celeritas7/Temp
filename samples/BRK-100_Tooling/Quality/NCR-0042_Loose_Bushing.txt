@@ -1,0 +1,22 @@
+NONCONFORMANCE REPORT  NCR-0042
+Date raised:  2026-09-14
+Product:      BRK-100 Motor Bracket Assembly
+Found at:     Final inspection, 3 of 120 units
+
+Description
+Bushing BU-12 could be turned by hand in the bracket bore on 3 units (serials 26-0871, 26-0874, 26-0880).
+The bushing bore passed the GA-401 go/no-go check on all 3 units.
+
+Root cause
+The pilot of press punch PT-301 was worn to 9.96 mm (drawing 10.02 +/-0.01). The bushing tilted while
+being pressed and the press fit was damaged on one side.
+
+Containment
+All units built since the last good PT-301 check (2026-09-07) re-checked: 3 rejects found, scrapped.
+
+Corrective action
+1. PT-301 replaced with a new punch (pilot measured 10.021 mm on 2026-09-15).
+2. Weekly pilot diameter check of PT-301 added to WI-BRK-100-A Rev C.
+3. Spare PT-301 punch kept in the toolroom.
+
+Status: CLOSED 2026-09-21

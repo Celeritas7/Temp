@@ -26,7 +26,8 @@ MAX_MATCHES = 5000  # keeps the page responsive; the user is asked to narrow the
 PAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web", "index.html")
 # Opening these with the default app would run them (e.g. .bat on Windows), so we show their folder instead.
 RUNNABLE_EXTENSIONS = {".bat", ".ps1", ".sh", ".js", ".py", ".rb", ".php"}
-TYPE_LABELS = {"pdf": "PDF", "word": "Word", "excel": "Excel", "powerpoint": "PowerPoint", "text": "Text & code"}
+TYPE_LABELS = {"pdf": "PDF", "word": "Word", "excel": "Excel", "powerpoint": "PowerPoint", "cad": "CAD (STEP)",
+               "text": "Text & code"}
 
 
 def _utf16_index(text, index):

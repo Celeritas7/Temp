@@ -13,9 +13,16 @@ machine, and nobody else on the network can open the page.
 | Word | `.docx .odt .rtf` |
 | Excel | `.xlsx .ods .csv .tsv` |
 | PowerPoint | `.pptx .odp` |
+| CAD (STEP) | `.step .stp` (finds part names and numbers stored in the model) |
 | Text & code | `.txt .md .log .json .xml .html .yaml .ini .py .js .sql ...` |
 
 Old binary formats (`.doc`, `.xls`, `.ppt`) and scanned PDFs (images with no text layer) are not supported.
+
+## Try it on the sample project
+
+`samples/BRK-100_Tooling` is a small made-up assembly project. It has STEP models of the assembly tools,
+drawings, a work instruction, a tooling register, training slides and quality records. See
+[samples/README.md](samples/README.md) for practice searches.
 
 ## Install
 
@@ -73,7 +80,7 @@ python docsearch.py ~/Documents "inv(oice)?s?" --regex --files-only
 | `-w`, `--whole-word` | match whole words only |
 | `-r`, `--regex` | treat the search text as a regular expression |
 | `-l`, `--files-only` | print only the names of matching files |
-| `-t`, `--type` | only search `pdf`, `word`, `excel`, `powerpoint` or `text` files (repeatable) |
+| `-t`, `--type` | only search `pdf`, `word`, `excel`, `powerpoint`, `cad` or `text` files (repeatable) |
 
 Running `python docsearch.py` with no arguments starts the website.
 
@@ -84,3 +91,4 @@ Running `python docsearch.py` with no arguments starts the website.
 | `docsearch.py` | search engine (reads the documents) and command line |
 | `docsearch_web.py` | local web server for the website |
 | `web/index.html` | the web page |
+| `samples/` | sample project to practise on, and the script that builds it |

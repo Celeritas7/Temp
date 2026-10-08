@@ -1,0 +1,8 @@
+Serial,Date,GA-401 GO,GA-401 NO-GO,Torque 9.5 Nm (TW-101),Result,Operator
+26-0868,2026-09-12,enters,does not enter,OK,PASS,AM
+26-0871,2026-09-12,enters,does not enter,OK,"FAIL - loose bushing, NCR-0042",AM
+26-0874,2026-09-13,enters,does not enter,OK,"FAIL - loose bushing, NCR-0042",RK
+26-0880,2026-09-13,enters,does not enter,OK,"FAIL - loose bushing, NCR-0042",RK
+26-0881,2026-09-16,enters,does not enter,OK,PASS,AM
+26-0882,2026-09-16,enters,enters,OK,FAIL - bore oversize,AM
+26-0883,2026-09-16,enters,does not enter,OK,PASS,AM
