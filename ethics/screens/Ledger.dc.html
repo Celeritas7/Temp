@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ethics — Commitments and Ledger</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0C0C0E}
+a{color:#C9A54A}a:hover{color:#E0BF66}
+.app{width:390px;height:844px;box-sizing:border-box;background:#0C0C0E;color:#ECEAE4;font-family:'IBM Plex Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden;font-size:15px;line-height:1.4}
+.scroll{flex:1;overflow-y:auto;padding:4px 16px 24px;display:flex;flex-direction:column;gap:22px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A877F}
+.seg{display:flex;background:#141417;border:1px solid #26262B;border-radius:9px;padding:3px;gap:2px}
+.segb{flex:1;min-height:38px;border:0;border-radius:7px;background:transparent;color:#A9A69E;font:inherit;font-size:13px;cursor:pointer}
+.segb.on{background:#26231A;color:#E8CB78}
+.sec{display:flex;flex-direction:column}
+.sechead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid #1F1F24}
+.date{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#A9A69E;width:62px;flex:none;padding-top:2px}
+.sub{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#A9A69E;margin-top:2px}
+.amt{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:14px;color:#ECEAE4;text-align:right}
+.st{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;padding:2px 6px;border-radius:4px;border:1px solid #3A3A40;color:#B4B1A9;white-space:nowrap}
+.st.back{border-color:#4D5A3E;color:#AFC293}
+.st.open{border-color:#7A6429;color:#D9B95E}
+.group{background:#141417;border:1px solid #26262B;border-radius:10px;padding:4px 14px 6px;margin-top:4px}
+.tabbar{display:flex;border-top:1px solid #222226;background:#0F0F12;padding:4px 4px 12px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;font-size:11px;color:#8A877F;text-decoration:none}
+.tab:hover{color:#ECEAE4}
+.tab.on{color:#C9A54A}
+</style>
+</helmet>
+<div class="app">
+  <header style="padding: 20px 16px 12px; display: flex; flex-direction: column; gap: 14px">
+    <div>
+      <div class="eyebrow">Money facts · Cost via Akatsuki · read 09:02</div>
+      <h1 style="margin: 4px 0 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Commitments &amp; Ledger</h1>
+    </div>
+    <div class="seg" role="group" aria-label="Show">
+      <sc-for list="{{segs}}" as="g" hint-placeholder-count="4">
+        <button class="{{g.cls}}" type="button" aria-pressed="{{g.pressed}}" onClick="{{g.pick}}">{{g.label}}</button>
+      </sc-for>
+    </div>
+  </header>
+
+  <main class="scroll">
+    <sc-if value="{{showPromises}}" hint-placeholder-val="{{true}}">
+      <section class="sec" aria-labelledby="pr">
+        <div class="sechead"><h2 id="pr" class="eyebrow" style="margin: 0">Promises I've made · 4</h2></div>
+        <div class="row">
+          <span class="date" style="color: #D9B95E">Today 14:00</span>
+          <div style="flex: 1"><div>Attend Kōbe Seiki interview</div><div class="sub">made 2 Oct · a request to break it is open</div></div>
+          <span class="st open">open</span>
+        </div>
+        <div class="row">
+          <span class="date" style="color: #D9B95E">Today 13:00</span>
+          <div style="flex: 1"><div>Reply to Ms. Mori</div><div class="sub">made 08:20 today</div></div>
+          <span class="st open">open</span>
+        </div>
+        <div class="row">
+          <span class="date">Sun 18</span>
+          <div style="flex: 1"><div>Return Sato's torque wrench</div><div class="sub">borrowed 3 Oct</div></div>
+          <span class="st">open</span>
+        </div>
+        <div class="row">
+          <span class="date">Sat 24</span>
+          <div style="flex: 1"><div>Help Daichi move a desk</div><div class="sub">made 10 Oct</div></div>
+          <span class="st">open</span>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{showOwe}}" hint-placeholder-val="{{true}}">
+      <section class="sec" aria-labelledby="ow">
+        <div class="sechead"><h2 id="ow" class="eyebrow" style="margin: 0">I owe · 2</h2></div>
+        <a class="row" href="DecisionOptions.dc.html" style="text-decoration: none; color: inherit">
+          <span class="date">Fri 16</span>
+          <div style="flex: 1"><div>My share of the cleaning fee</div><div class="sub">Daichi paid ¥18,000 · share not decided yet</div></div>
+          <span class="amt">—</span>
+        </a>
+        <div class="row">
+          <span class="date">9 Oct</span>
+          <div style="flex: 1"><div>Shared taxi with Sato</div><div class="sub">no date agreed</div></div>
+          <span class="amt">¥3,200</span>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{showLent}}" hint-placeholder-val="{{true}}">
+      <section class="sec" aria-labelledby="le">
+        <div class="sechead">
+          <h2 id="le" class="eyebrow" style="margin: 0">Lent</h2>
+          <span class="mono" style="font-size: 12px; color: #A9A69E">out ¥55,000</span>
+        </div>
+
+        <div class="group">
+          <div class="row" style="border-top: 0; align-items: baseline">
+            <div style="flex: 1; font-weight: 600">Kenji</div>
+            <span class="mono" style="font-size: 12px; color: #A9A69E">¥0 of ¥55,000 returned</span>
+          </div>
+          <div class="row">
+            <span class="date">2 Aug</span>
+            <div style="flex: 1"><div class="amt" style="text-align: left">¥20,000</div><div class="sub">due 31 Aug</div></div>
+            <span class="st">not returned</span>
+          </div>
+          <div class="row">
+            <span class="date">3 Jun</span>
+            <div style="flex: 1"><div class="amt" style="text-align: left">¥20,000</div><div class="sub">due 30 Jun</div></div>
+            <span class="st">not returned</span>
+          </div>
+          <div class="row">
+            <span class="date">12 Mar</span>
+            <div style="flex: 1"><div class="amt" style="text-align: left">¥15,000</div><div class="sub">due 30 Apr</div></div>
+            <span class="st">not returned</span>
+          </div>
+          <div class="row">
+            <span class="date">Today</span>
+            <div style="flex: 1"><div>Asks for ¥30,000</div><div class="sub">decision pending</div></div>
+            <a href="DecisionCheck.dc.html" style="font-size: 13px; min-height: 32px; display: inline-flex; align-items: center">Check</a>
+          </div>
+        </div>
+
+        <div class="group" style="margin-top: 10px">
+          <div class="row" style="border-top: 0; align-items: baseline">
+            <div style="flex: 1; font-weight: 600">Daichi</div>
+            <span class="mono" style="font-size: 12px; color: #A9A69E">¥5,000 of ¥5,000 returned</span>
+          </div>
+          <div class="row">
+            <span class="date">8 Feb</span>
+            <div style="flex: 1"><div class="amt" style="text-align: left">¥5,000</div><div class="sub">returned 1 Mar</div></div>
+            <span class="st back">returned</span>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <p class="mono" style="margin: 0; font-size: 11px; color: #8A877F">Amounts and dates belong to Cost. Ethics only links them to promises and decisions.</p>
+  </main>
+
+  <nav class="tabbar" aria-label="Sections">
+    <a class="tab" href="Main.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg>Today</a>
+    <a class="tab" href="DecisionCheck.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16M7 20h10M4 7h16M4 7l-2.5 6h5zM20 7l-2.5 6h5z"></path></svg>Check</a>
+    <a class="tab" href="Charter.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"></path></svg>Charter</a>
+    <a class="tab on" href="Ledger.dc.html" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v14H4zM12 5v14M7 9h2M7 13h2M15 9h2M15 13h2"></path></svg>Ledger</a>
+    <a class="tab" href="Review.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2"></path></svg>Review</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const cur = (this.state && this.state.seg) || 'all';
+    const segs = [['all', 'All'], ['promises', 'Promises'], ['owe', 'I owe'], ['lent', 'Lent']].map(([id, label]) => ({
+      label, cls: cur === id ? 'segb on' : 'segb', pressed: cur === id ? 'true' : 'false',
+      pick: () => this.setState({ seg: id })
+    }));
+    return {
+      segs,
+      showPromises: cur === 'all' || cur === 'promises',
+      showOwe: cur === 'all' || cur === 'owe',
+      showLent: cur === 'all' || cur === 'lent'
+    };
+  }
+}
+</script>
+</body>
+</html>

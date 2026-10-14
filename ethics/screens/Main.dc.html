@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ethics — Today</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0C0C0E}
+a{color:#C9A54A}a:hover{color:#E0BF66}
+.app{width:390px;height:844px;box-sizing:border-box;background:#0C0C0E;color:#ECEAE4;font-family:'IBM Plex Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden;font-size:15px;line-height:1.4}
+.scroll{flex:1;overflow-y:auto;padding:8px 16px 24px;display:flex;flex-direction:column;gap:24px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A877F}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sechead{display:flex;justify-content:space-between;align-items:baseline}
+.card{background:#141417;border:1px solid #26262B;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.card.urgent{border-color:#5A4A22}
+.tag{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;padding:2px 7px;border:1px solid #3A3A40;border-radius:4px;color:#B4B1A9}
+.tag.gold{border-color:#7A6429;color:#D9B95E}
+.fact{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#A9A69E}
+.row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid #1F1F24;text-decoration:none;color:inherit}
+.btn{min-height:44px;border-radius:8px;font:inherit;font-weight:600;font-size:15px;border:0;padding:0 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;cursor:pointer;box-sizing:border-box}
+.btn.primary{background:#C9A54A;color:#151107}
+.btn.primary:hover{background:#D7B458;color:#151107}
+.btn.ghost{background:transparent;color:#ECEAE4;border:1px solid #3A3A40}
+.btn.ghost:hover{color:#ECEAE4;border-color:#5A5A62}
+.tabbar{display:flex;border-top:1px solid #222226;background:#0F0F12;padding:4px 4px 12px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;font-size:11px;color:#8A877F;text-decoration:none}
+.tab:hover{color:#ECEAE4}
+.tab.on{color:#C9A54A}
+</style>
+</helmet>
+<div class="app">
+  <header style="padding: 20px 16px 12px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px">
+    <div>
+      <div class="eyebrow">Ethics · Wed 14 Oct</div>
+      <h1 style="margin: 4px 0 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Today</h1>
+    </div>
+    <a class="btn primary" href="DecisionCheck.dc.html">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+      New check
+    </a>
+  </header>
+
+  <main class="scroll">
+    <section class="sec" aria-labelledby="await">
+      <div class="sechead">
+        <h2 id="await" class="eyebrow" style="margin: 0">Awaiting your answer · 2</h2>
+      </div>
+
+      <article class="card urgent">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
+          <span style="font-weight: 600">Ms. Mori · recruiting agency</span>
+          <span class="tag gold">answer by 13:00</span>
+        </div>
+        <p style="margin: 0">Asks you to withdraw from today's 14:00 interview at Kōbe Seiki.</p>
+        <div class="fact">Calendar · you confirmed this interview on 2 Oct</div>
+        <div style="display: flex; justify-content: space-between; align-items: center">
+          <div style="display: flex; gap: 6px; flex-wrap: wrap">
+            <span class="tag">A promise</span>
+            <span class="tag">Own interest</span>
+          </div>
+          <a class="btn ghost" href="DecisionCheck.dc.html" style="min-height: 40px; font-size: 14px">Check</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
+          <span style="font-weight: 600">Kenji</span>
+          <span class="mono" style="font-size: 12px; color: #A9A69E">asked 22:40 yesterday</span>
+        </div>
+        <p style="margin: 0">Asks to borrow ¥30,000 until 31 Oct.</p>
+        <div class="fact">Cost · 3 earlier loans, ¥55,000 · none returned</div>
+        <div style="display: flex; justify-content: space-between; align-items: center">
+          <div style="display: flex; gap: 6px; flex-wrap: wrap">
+            <span class="tag">Money</span>
+          </div>
+          <a class="btn ghost" href="DecisionCheck.dc.html" style="min-height: 40px; font-size: 14px">Check</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="sec" aria-labelledby="pending">
+      <h2 id="pending" class="eyebrow" style="margin: 0">Pending decisions · 2</h2>
+      <div>
+        <a class="row" href="DecisionOptions.dc.html">
+          <div style="flex: 1">
+            <div>My share of the ¥18,000 cleaning fee</div>
+            <div class="fact" style="margin-top: 2px">Draft · charged to Daichi · 3 residents involved</div>
+          </div>
+          <span class="tag">Fair share</span>
+        </a>
+        <a class="row" href="DecisionOptions.dc.html">
+          <div style="flex: 1">
+            <div>Resume: tools I built at Hoshino Kōgyō</div>
+            <div class="fact" style="margin-top: 2px">Draft · former employer</div>
+          </div>
+          <span class="tag">Employer IP</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="due">
+      <h2 id="due" class="eyebrow" style="margin: 0">Commitments due soon</h2>
+      <div>
+        <div class="row">
+          <span class="mono" style="width: 64px; font-size: 12px; color: #D9B95E; padding-top: 2px">Today 13:00</span>
+          <div style="flex: 1">Reply to Ms. Mori</div>
+        </div>
+        <div class="row">
+          <span class="mono" style="width: 64px; font-size: 12px; color: #D9B95E; padding-top: 2px">Today 14:00</span>
+          <div style="flex: 1">Kōbe Seiki interview <span class="fact">· promised 2 Oct</span></div>
+        </div>
+        <div class="row">
+          <span class="mono" style="width: 64px; font-size: 12px; color: #A9A69E; padding-top: 2px">Fri 16</span>
+          <div style="flex: 1">Settle cleaning-fee share with Daichi</div>
+        </div>
+        <div class="row">
+          <span class="mono" style="width: 64px; font-size: 12px; color: #A9A69E; padding-top: 2px">Sun 18</span>
+          <div style="flex: 1">Return Sato's torque wrench</div>
+        </div>
+        <a class="row" href="Uncovered.dc.html">
+          <span class="mono" style="width: 64px; font-size: 12px; color: #A9A69E; padding-top: 2px">Fri 23</span>
+          <div style="flex: 1">
+            <div>Team year-end party</div>
+            <div class="fact" style="margin-top: 2px">No principle covers drinking yet</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <p class="fact" style="margin: 0; color: #8A877F">Facts are read live from Akatsuki (Calendar, Cost, Contacts) and not kept. Ethics stores only your judgements.</p>
+  </main>
+
+  <nav class="tabbar" aria-label="Sections">
+    <a class="tab on" href="Main.dc.html" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg>Today</a>
+    <a class="tab" href="DecisionCheck.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16M7 20h10M4 7h16M4 7l-2.5 6h5zM20 7l-2.5 6h5z"></path></svg>Check</a>
+    <a class="tab" href="Charter.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"></path></svg>Charter</a>
+    <a class="tab" href="Ledger.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v14H4zM12 5v14M7 9h2M7 13h2M15 9h2M15 13h2"></path></svg>Ledger</a>
+    <a class="tab" href="Review.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2"></path></svg>Review</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

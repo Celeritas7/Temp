@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ethics — Values Charter</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0C0C0E}
+a{color:#C9A54A}a:hover{color:#E0BF66}
+.app{width:390px;height:844px;box-sizing:border-box;background:#0C0C0E;color:#ECEAE4;font-family:'IBM Plex Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden;font-size:15px;line-height:1.4}
+.scroll{flex:1;overflow-y:auto;padding:4px 16px 24px;display:flex;flex-direction:column;gap:10px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A877F}
+.pr{background:#141417;border:1px solid #26262B;border-radius:10px;overflow:hidden}
+.pr.on{border-color:#5A4A22}
+.prhead{width:100%;text-align:left;background:none;border:0;color:inherit;font:inherit;padding:14px;cursor:pointer;display:flex;gap:12px;align-items:flex-start}
+.num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#C9A54A;width:18px;flex:none;padding-top:3px}
+.meta{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#8A877F;margin-top:4px}
+.body{padding:0 14px 14px 44px;display:flex;flex-direction:column;gap:12px}
+.h{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8A877F;margin-bottom:4px}
+.hist{display:flex;gap:10px;font-size:13px;padding:4px 0}
+.ver{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#A9A69E;width:76px;flex:none;padding-top:1px}
+.ex{font-size:13px;color:#C8C5BE;padding:6px 0;border-top:1px solid #1F1F24}
+.btn{min-height:44px;border-radius:8px;font:inherit;font-weight:600;font-size:15px;border:0;padding:0 14px;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;cursor:pointer;box-sizing:border-box}
+.btn.primary{background:#C9A54A;color:#151107}
+.btn.ghost{background:transparent;color:#ECEAE4;border:1px solid #3A3A40;min-height:40px;font-size:14px}
+.tabbar{display:flex;border-top:1px solid #222226;background:#0F0F12;padding:4px 4px 12px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;font-size:11px;color:#8A877F;text-decoration:none}
+.tab:hover{color:#ECEAE4}
+.tab.on{color:#C9A54A}
+</style>
+</helmet>
+<div class="app">
+  <header style="padding: 20px 16px 8px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px">
+    <div>
+      <div class="eyebrow">8 principles · your words</div>
+      <h1 style="margin: 4px 0 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Values Charter</h1>
+    </div>
+    <button class="btn primary" type="button">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Write
+    </button>
+  </header>
+
+  <main class="scroll">
+    <p style="margin: 0 0 6px; font-size: 13px; color: #A9A69E">Ethics checks situations against these and nothing else. Only you can change them.</p>
+    <sc-for list="{{items}}" as="p" hint-placeholder-count="8">
+      <article class="{{p.cls}}">
+        <button class="prhead" type="button" aria-expanded="{{p.expanded}}" onClick="{{p.toggle}}">
+          <span class="num">{{p.n}}</span>
+          <span style="flex: 1">
+            <span style="display: block; font-size: 16px; font-weight: 500">“{{p.text}}”</span>
+            <span class="meta" style="display: block">{{p.meta}}</span>
+          </span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A877F" stroke-width="2" aria-hidden="true" style="flex: none; margin-top: 3px"><path d="{{p.chev}}"></path></svg>
+        </button>
+        <sc-if value="{{p.open}}" hint-placeholder-val="{{false}}">
+          <div class="body">
+            <div>
+              <div class="h">Edit history</div>
+              <sc-for list="{{p.history}}" as="h" hint-placeholder-count="2">
+                <div class="hist"><span class="ver">{{h.v}}</span><span style="flex: 1">{{h.t}}</span></div>
+              </sc-for>
+            </div>
+            <div>
+              <div class="h">Where it applied</div>
+              <sc-for list="{{p.examples}}" as="e" hint-placeholder-count="2">
+                <div class="ex">{{e}}</div>
+              </sc-for>
+            </div>
+            <div style="display: flex; gap: 8px">
+              <button class="btn ghost" type="button">Edit wording</button>
+              <a class="btn ghost" href="Review.dc.html">All {{p.count}} decisions</a>
+            </div>
+          </div>
+        </sc-if>
+      </article>
+    </sc-for>
+  </main>
+
+  <nav class="tabbar" aria-label="Sections">
+    <a class="tab" href="Main.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg>Today</a>
+    <a class="tab" href="DecisionCheck.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16M7 20h10M4 7h16M4 7l-2.5 6h5zM20 7l-2.5 6h5z"></path></svg>Check</a>
+    <a class="tab on" href="Charter.dc.html" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"></path></svg>Charter</a>
+    <a class="tab" href="Ledger.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v14H4zM12 5v14M7 9h2M7 13h2M15 9h2M15 13h2"></path></svg>Ledger</a>
+    <a class="tab" href="Review.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2"></path></svg>Review</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const openId = s.openId === undefined ? 'fair' : s.openId;
+    const data = [
+      { id: 'judge', text: "I don't judge people.", ver: 'v1', since: 'Jan 2025', count: 14,
+        history: [{ v: 'v1 · Jan 2025', t: 'Written.' }],
+        examples: ['Oct 2026 · Kenji loan request — pending', 'Jul 2026 · Neighbour noise complaint — raised the noise, not the neighbour'] },
+      { id: 'truth', text: 'I tell the truth when asked directly.', ver: 'v3', since: 'Feb 2025', count: 9,
+        history: [{ v: 'v3 · 30 Sep 2026', t: 'Added “directly”. Unasked silence is a separate question.' }, { v: 'v2 · Jun 2025', t: '“I tell the truth when asked.”' }, { v: 'v1 · Feb 2025', t: '“I don\'t lie.”' }],
+        examples: ['29 Sep 2026 · Told manager the rig delay was my calibration error', '18 Sep 2026 · Said the vendor report was “nearly done” — drift'] },
+      { id: 'fair', text: 'I pay my fair share of a shared mistake.', ver: 'v2', since: 'Nov 2025', count: 4,
+        history: [{ v: 'v2 · 3 Apr 2026', t: 'Changed “equally” to “my fair share”, after the kettle decision.' }, { v: 'v1 · Nov 2025', t: '“I split the cost of shared mistakes equally.”' }],
+        examples: ['Oct 2026 · ¥18,000 cleaning fee charged to Daichi — pending', 'Mar 2026 · Broken kettle, shared kitchen — paid ¥2,000 of ¥6,000', 'Jan 2026 · Lost common-room key — paid ¥1,500 of ¥4,500'] },
+      { id: 'ip', text: "My employer's IP stays with my employer.", ver: 'v2', since: 'Apr 2025', count: 3,
+        history: [{ v: 'v2 · 1 Jun 2026', t: 'Now covers former employers too.' }, { v: 'v1 · Apr 2025', t: 'Written.' }],
+        examples: ['Oct 2026 · Resume: tools built at Hoshino Kōgyō — pending', '9 Sep 2026 · Kept those tools out of my portfolio repo'] },
+      { id: 'lend', text: 'I lend only what I can afford not to get back.', ver: 'v2', since: 'Mar 2025', count: 5,
+        history: [{ v: 'v2 · 5 Sep 2026', t: 'Added a line: ¥10,000 per person at a time.' }, { v: 'v1 · Mar 2025', t: 'Written.' }],
+        examples: ['Oct 2026 · Kenji asks for ¥30,000 — pending', '2 Aug 2026 · Lent Kenji ¥20,000 — drift'] },
+      { id: 'promise', text: 'I keep a promise, or release it early and plainly.', ver: 'v1', since: 'Jan 2025', count: 6,
+        history: [{ v: 'v1 · Jan 2025', t: 'Written.' }],
+        examples: ['Oct 2026 · Recruiter asks me to drop today\'s interview — open'] },
+      { id: 'rules', text: 'I follow work rules even when no one checks.', ver: 'v1', since: 'May 2025', count: 2,
+        history: [{ v: 'v1 · May 2025', t: 'Written.' }],
+        examples: ['Jun 2026 · Logged overtime that would have gone unnoticed'] },
+      { id: 'gifts', text: "I don't accept gifts that come with a request attached.", ver: 'v1', since: 'Aug 2025', count: 1,
+        history: [{ v: 'v1 · Aug 2025', t: 'Written.' }],
+        examples: ['Aug 2025 · Returned a supplier\'s gift voucher'] }
+    ];
+    const items = data.map((p, i) => {
+      const open = openId === p.id;
+      return {
+        n: String(i + 1).padStart(2, '0'), text: p.text, count: p.count,
+        meta: p.ver + ' · since ' + p.since + ' · applied in ' + p.count + ' decisions',
+        history: p.history, examples: p.examples, open,
+        expanded: open ? 'true' : 'false',
+        cls: open ? 'pr on' : 'pr',
+        chev: open ? 'M6 15l6-6 6 6' : 'M6 9l6 6 6-6',
+        toggle: () => this.setState({ openId: open ? null : p.id })
+      };
+    });
+    return { items };
+  }
+}
+</script>
+</body>
+</html>

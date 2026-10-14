@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ethics — Options</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0C0C0E}
+a{color:#C9A54A}a:hover{color:#E0BF66}
+.app{width:390px;height:844px;box-sizing:border-box;background:#0C0C0E;color:#ECEAE4;font-family:'IBM Plex Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden;font-size:15px;line-height:1.4}
+.scroll{flex:1;overflow-y:auto;padding:4px 16px 20px;display:flex;flex-direction:column;gap:20px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A877F}
+.card{background:#141417;border:1px solid #26262B;border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.val{display:flex;flex-direction:column;gap:4px;padding:10px 0;border-top:1px solid #1F1F24}
+.val q{font-weight:500;quotes:'\201C' '\201D'}
+.why{font-size:13px;color:#A9A69E}
+.linkbtn{background:none;border:0;padding:0 2px;min-height:32px;color:#C9A54A;font:inherit;font-size:13px;cursor:pointer;align-self:flex-start}
+.opt{width:100%;text-align:left;background:#141417;border:1px solid #2C2C32;border-radius:10px;padding:14px;color:inherit;font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:8px}
+.opt:hover{border-color:#4A4A52}
+.opt.on{border-color:#C9A54A;background:#1A1710}
+.optk{display:flex;gap:10px;align-items:flex-start}
+.letter{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;width:22px;height:22px;border-radius:11px;border:1px solid #4A4A52;display:inline-flex;align-items:center;justify-content:center;flex:none;color:#B4B1A9}
+.opt.on .letter{background:#C9A54A;border-color:#C9A54A;color:#151107}
+.line{display:flex;gap:8px;font-size:13px;color:#C8C5BE}
+.lab{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;width:62px;flex:none;padding-top:2px}
+.lab.h{color:#D9B95E}
+.lab.c{color:#A9A69E}
+.lab.l{color:#8A877F}
+.input{flex:1;min-width:0;box-sizing:border-box;background:#141417;border:1px solid #3A3A40;border-radius:8px;color:#ECEAE4;font:inherit;font-size:16px;padding:0 12px;min-height:48px}
+.input:focus{outline:2px solid #C9A54A;outline-offset:1px}
+.btn{min-height:48px;border-radius:8px;font:inherit;font-weight:600;font-size:16px;border:0;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;cursor:pointer;box-sizing:border-box}
+.btn.primary{background:#C9A54A;color:#151107}
+.btn.primary:disabled{background:#3A3528;color:#8A877F;cursor:not-allowed}
+.btn.ghost{background:transparent;color:#ECEAE4;border:1px solid #3A3A40}
+</style>
+</helmet>
+<div class="app">
+  <header style="padding: 16px 16px 8px; display: flex; justify-content: space-between; align-items: center">
+    <a href="DecisionCheck.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; gap: 4px; text-decoration: none">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Edit situation
+    </a>
+    <div class="mono" style="font-size: 13px; color: #A9A69E"><span style="color: #ECEAE4">0:41</span> elapsed</div>
+  </header>
+
+  <main class="scroll">
+    <div>
+      <div class="eyebrow">Decision check · 2 of 2</div>
+      <p style="margin: 4px 0 0; font-size: 18px; font-weight: 500">Kenji asks to borrow ¥30,000 until 31 Oct.</p>
+    </div>
+
+    <div class="card">
+      <div class="eyebrow">Fact</div>
+      <div style="font-size: 14px">Repayment has not happened on the last 3 loans (¥55,000 in total).</div>
+    </div>
+
+    <section aria-labelledby="vt">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px">
+        <h2 id="vt" class="eyebrow" style="margin: 0">Your values this touches</h2>
+        <span class="mono" style="font-size: 11px; color: #8A877F">from your charter</span>
+      </div>
+      <sc-for list="{{values}}" as="v" hint-placeholder-count="3">
+        <div class="val">
+          <sc-if value="{{v.active}}" hint-placeholder-val="{{true}}">
+            <q>{{v.text}}</q>
+            <div class="why">Why: {{v.why}}</div>
+            <button class="linkbtn" type="button" onClick="{{v.toggle}}">Doesn't apply here</button>
+          </sc-if>
+          <sc-if value="{{v.dismissed}}" hint-placeholder-val="{{false}}">
+            <q style="color: #8A877F; text-decoration: line-through">{{v.text}}</q>
+            <div class="why">Set aside by you. Options below no longer weigh it.</div>
+            <button class="linkbtn" type="button" onClick="{{v.toggle}}">Restore</button>
+          </sc-if>
+        </div>
+      </sc-for>
+    </section>
+
+    <section aria-labelledby="ops" style="display: flex; flex-direction: column; gap: 10px">
+      <div>
+        <h2 id="ops" class="eyebrow" style="margin: 0">Options</h2>
+        <p style="margin: 4px 0 0; font-size: 13px; color: #A9A69E">Listed in no particular order. None is a recommendation.</p>
+      </div>
+      <sc-for list="{{options}}" as="o" hint-placeholder-count="4">
+        <button class="{{o.cls}}" type="button" aria-pressed="{{o.pressed}}" onClick="{{o.pick}}">
+          <span class="optk">
+            <span class="letter">{{o.id}}</span>
+            <span style="font-weight: 500">{{o.title}}</span>
+          </span>
+          <span class="line"><span class="lab h">Honours</span><span>{{o.honours}}</span></span>
+          <span class="line"><span class="lab c">Costs</span><span>{{o.costs}}</span></span>
+          <span class="line"><span class="lab l">Likely</span><span>{{o.likely}}</span></span>
+        </button>
+      </sc-for>
+      <a href="DecisionCheck.dc.html" style="font-size: 14px; min-height: 44px; display: inline-flex; align-items: center">None of these — write my own option</a>
+    </section>
+
+    <p style="margin: 0; font-size: 12px; color: #8A877F">A reading of your charter, not a ruling. You can set aside any value above, or decide against every option.</p>
+  </main>
+
+  <div style="padding: 12px 16px 20px; border-top: 1px solid #222226; background: #0F0F12; display: flex; flex-direction: column; gap: 10px">
+    <sc-if value="{{open}}" hint-placeholder-val="{{true}}">
+      <label for="reason" class="eyebrow">{{pickLabel}}</label>
+      <div style="display: flex; gap: 8px">
+        <input id="reason" class="input" type="text" placeholder="One-line reason" value="{{reason}}" onChange="{{setReason}}">
+        <button class="btn primary" type="button" disabled="{{cantDecide}}" onClick="{{decide}}">Decide</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{decided}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; gap: 10px; align-items: flex-start">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A54A" stroke-width="2" aria-hidden="true" style="flex: none; margin-top: 2px"><path d="M5 12l5 5 9-10"></path></svg>
+        <div style="flex: 1">
+          <div style="font-weight: 500">Recorded 09:31 · option {{picked}}</div>
+          <div style="font-size: 13px; color: #A9A69E">“{{reasonShown}}” · Ethics will ask how it went on 14 Nov.</div>
+        </div>
+        <button class="btn ghost" type="button" style="min-height: 40px; font-size: 14px; padding: 0 12px" onClick="{{undo}}">Undo</button>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const off = s.off || {};
+    const lend = 'I lend only what I can afford not to get back.';
+    const truth = 'I tell the truth when asked directly.';
+    const judge = "I don't judge people.";
+    const values = [
+      { id: 'lend', text: lend, why: 'this is a request for money; total outstanding to one person would reach ¥85,000.' },
+      { id: 'judge', text: judge, why: 'a person and a repayment history are involved. The options answer the request, not the person.' },
+      { id: 'truth', text: truth, why: 'any answer other than yes needs a reason; this sets how plainly you give it.' }
+    ].map(v => ({
+      text: v.text, why: v.why, active: !off[v.id], dismissed: !!off[v.id],
+      toggle: () => this.setState({ off: Object.assign({}, off, { [v.id]: !off[v.id] }) })
+    }));
+    const w = (id, t) => off[id] ? null : t;
+    const join = (xs) => { const k = xs.filter(Boolean); return k.length ? k.join(' ') : 'Nothing in your charter.'; };
+    const raw = [
+      { id: 'A', title: 'Lend ¥30,000 as asked.',
+        honours: [], costs: [w('lend', '“' + lend + '” Outstanding would reach ¥85,000.')],
+        likely: 'Going by the last 3 loans, return by 31 Oct is unlikely.' },
+      { id: 'B', title: 'Lend ¥10,000, an amount you could let go of.',
+        honours: [w('lend', '“' + lend + '”')], costs: [],
+        likely: 'Request partly met. Outstanding becomes ¥65,000.' },
+      { id: 'C', title: 'Decline this time and say plainly that ¥55,000 is still open.',
+        honours: [w('truth', '“' + truth + '”'), w('lend', '“' + lend + '”')], costs: [],
+        likely: 'A direct conversation now. Kenji may ask someone else.' },
+      { id: 'D', title: 'Ask to settle the earlier loans first, then reconsider.',
+        honours: [w('lend', '“' + lend + '”')], costs: [w('judge', '“' + judge + '” A condition can sound like a verdict; word it about the money.')],
+        likely: 'The answer is delayed; a repayment plan may or may not follow.' }
+    ];
+    const options = raw.map(o => ({
+      id: o.id, title: o.title, honours: join(o.honours), costs: join(o.costs), likely: o.likely,
+      cls: s.pick === o.id ? 'opt on' : 'opt',
+      pressed: s.pick === o.id ? 'true' : 'false',
+      pick: () => { if (!s.decided) this.setState({ pick: o.id }); }
+    }));
+    const reason = s.reason || '';
+    return {
+      values, options, reason,
+      open: !s.decided, decided: !!s.decided,
+      pickLabel: s.pick ? 'Option ' + s.pick + ' — why?' : 'Pick an option, then give one line why',
+      cantDecide: !s.pick || !reason.trim(),
+      picked: s.pick || '',
+      reasonShown: reason,
+      setReason: (e) => this.setState({ reason: e.target.value }),
+      decide: () => this.setState({ decided: true }),
+      undo: () => this.setState({ decided: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

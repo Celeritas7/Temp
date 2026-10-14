@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ethics — Not covered</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0C0C0E}
+a{color:#C9A54A}a:hover{color:#E0BF66}
+.app{width:390px;height:844px;box-sizing:border-box;background:#0C0C0E;color:#ECEAE4;font-family:'IBM Plex Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden;font-size:15px;line-height:1.4}
+.scroll{flex:1;overflow-y:auto;padding:4px 16px 24px;display:flex;flex-direction:column;gap:18px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A877F}
+.card{background:#141417;border:1px solid #26262B;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.gap{border:1px dashed #6A5A2C;background:#121110}
+.neuro{border-color:#3B3552;background:#131219}
+.chk{display:flex;gap:8px;font-size:13px;color:#B4B1A9;padding:6px 0;border-top:1px solid #1F1F24}
+.chk b{font-weight:500;color:#D6D3CC}
+.input{width:100%;box-sizing:border-box;background:#0F0F12;border:1px solid #3A3A40;border-radius:8px;color:#ECEAE4;font:inherit;font-size:16px;padding:12px;min-height:84px;resize:none}
+.input:focus{outline:2px solid #C9A54A;outline-offset:1px}
+.btn{min-height:48px;border-radius:8px;font:inherit;font-weight:600;font-size:15px;border:0;padding:0 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;cursor:pointer;box-sizing:border-box}
+.btn.primary{background:#C9A54A;color:#151107}
+.btn.primary:disabled{background:#3A3528;color:#8A877F;cursor:not-allowed}
+.btn.ghost{background:transparent;color:#ECEAE4;border:1px solid #3A3A40}
+.opt{background:#141417;border:1px solid #2C2C32;border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.line{display:flex;gap:8px;font-size:13px;color:#C8C5BE}
+.lab{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;width:62px;flex:none;padding-top:2px;color:#8A877F}
+</style>
+</helmet>
+<div class="app">
+  <header style="padding: 16px 16px 8px; display: flex; justify-content: space-between; align-items: center">
+    <a href="Main.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; gap: 4px; text-decoration: none">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Today
+    </a>
+    <div class="mono" style="font-size: 13px; color: #A9A69E"><span style="color: #ECEAE4">0:22</span> elapsed</div>
+  </header>
+
+  <main class="scroll">
+    <div>
+      <div class="eyebrow">Decision check · Safety · Colleagues</div>
+      <p style="margin: 4px 0 0; font-size: 18px; font-weight: 500">Colleagues push me to drink more than I want at the year-end party.</p>
+    </div>
+
+    <div class="card">
+      <div class="eyebrow">Facts · Calendar, Location via Akatsuki</div>
+      <div class="mono" style="font-size: 13px; color: #B4B1A9">Fri 23 Oct · 19:00–21:30 · Umeda</div>
+      <div class="mono" style="font-size: 13px; color: #B4B1A9">Last train home 23:41</div>
+    </div>
+
+    <section class="card gap" aria-labelledby="nc">
+      <h2 id="nc" style="margin: 0; font-size: 16px; font-weight: 600; color: #E8CB78">Your charter doesn't cover this</h2>
+      <p style="margin: 0; font-size: 14px; color: #C8C5BE">None of your 8 principles applies. Ethics won't fill the gap with a standard of its own.</p>
+      <details style="font-size: 13px">
+        <summary style="cursor: pointer; color: #C9A54A; min-height: 32px; display: flex; align-items: center">Principles checked and why they don't apply</summary>
+        <div class="chk"><b>“I tell the truth when asked directly.”</b></div>
+        <div style="font-size: 13px; color: #A9A69E; padding-bottom: 6px">No one is asking you a question.</div>
+        <div class="chk"><b>“I follow work rules even when no one checks.”</b></div>
+        <div style="font-size: 13px; color: #A9A69E; padding-bottom: 6px">There is no work rule on drinking at this event.</div>
+      </details>
+    </section>
+
+    <section class="card neuro" aria-labelledby="nr">
+      <div style="display: flex; gap: 8px; align-items: center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A396E6" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v5M12 16v.5"></path></svg>
+        <h2 id="nr" class="mono" style="margin: 0; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #A396E6">Neurology · group pressure</h2>
+      </div>
+      <p style="margin: 0; font-size: 13px; color: #C8C5BE">Several people, repeated asks. This is shown for your information only and doesn't change what Ethics offers.</p>
+    </section>
+
+    <sc-if value="{{asking}}" hint-placeholder-val="{{true}}">
+      <section style="display: flex; flex-direction: column; gap: 10px" aria-labelledby="wp">
+        <label id="wp" for="np" class="eyebrow">Write a principle, in your own words</label>
+        <textarea id="np" class="input" placeholder="Start with “I…”" value="{{text}}" onChange="{{setText}}"></textarea>
+        <button class="btn primary" type="button" disabled="{{empty}}" onClick="{{add}}">Add to charter and see options</button>
+        <button class="btn ghost" type="button" onClick="{{skip}}">Continue without a principle</button>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{added}}" hint-placeholder-val="{{false}}">
+      <div class="card">
+        <div class="eyebrow">Added to your charter · v1</div>
+        <div style="font-weight: 500">“{{text}}”</div>
+        <a href="DecisionOptions.dc.html" class="btn primary" style="margin-top: 4px">Show options</a>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{without}}" hint-placeholder-val="{{false}}">
+      <section style="display: flex; flex-direction: column; gap: 10px" aria-labelledby="po">
+        <div>
+          <h2 id="po" class="eyebrow" style="margin: 0">Options · consequences only</h2>
+          <p style="margin: 4px 0 0; font-size: 13px; color: #A9A69E">With no principle to weigh them against, Ethics shows only what is likely to happen.</p>
+        </div>
+        <div class="opt">
+          <div style="font-weight: 500">A · Drink at your own pace; switch to oolong tea after the second.</div>
+          <div class="line"><span class="lab">Likely</span><span>A few more offers; most stop once the glass is full.</span></div>
+        </div>
+        <div class="opt">
+          <div style="font-weight: 500">B · Say once that you've had enough, and repeat the same words if asked again.</div>
+          <div class="line"><span class="lab">Likely</span><span>A short moment of attention, then the topic moves on.</span></div>
+        </div>
+        <div class="opt">
+          <div style="font-weight: 500">C · Stay for the first party; skip the second.</div>
+          <div class="line"><span class="lab">Likely</span><span>Home before the last train; less time with the team.</span></div>
+        </div>
+        <button class="btn ghost" type="button" onClick="{{back}}">Write a principle instead</button>
+      </section>
+    </sc-if>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const mode = s.mode || 'ask';
+    const text = s.text || '';
+    return {
+      text,
+      empty: !text.trim(),
+      asking: mode === 'ask',
+      added: mode === 'added',
+      without: mode === 'without',
+      setText: (e) => this.setState({ text: e.target.value }),
+      add: () => this.setState({ mode: 'added' }),
+      skip: () => this.setState({ mode: 'without' }),
+      back: () => this.setState({ mode: 'ask' })
+    };
+  }
+}
+</script>
+</body>
+</html>
