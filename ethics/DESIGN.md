@@ -42,7 +42,23 @@ Each fact shown on screen is labelled with its source and "read now, not kept".
 | 2c | `Uncovered.dc.html` | No principle applies: shows which principles were checked and why each was ruled out, the Neurology signal, write a principle or continue without one |
 | 3 | `Charter.dc.html` | Principles in your words, version, count of decisions, expandable edit history and examples |
 | 4 | `Ledger.dc.html` | Promises, what I owe, what I lent and whether it came back (from Cost); filter All / Promises / I owe / Lent |
-| 5 | `Review.dc.html` | Monthly marks per principle (in line / drift), decisions with reason and outcome, add an outcome inline |
+| 5 | `Review.dc.html` | Monthly marks per principle (in line / drift), decisions with reason and outcome, add an outcome inline, "Practise this moment" on a drift |
+| 2d | `LendTerms.dc.html` | Lend with terms: amount within your own limit, return date (one date or two parts), a written-agreement message to copy into LINE, reminders that Ethics drafts and you send, and the step if it's late, chosen in advance |
+| 6 | `Practice.dc.html` | Practice sessions: 3–4 minute rehearsals built from your ledger, charter, calendar and drifts. You write your line and tick your own checklist; an optional sample line is shown as "one way, not the right way". Nothing is scored |
+
+## Getting money back (lending flow)
+
+Ethics can't make anyone repay. It makes the conditions for repayment explicit, so the follow-up is about the money, not the person:
+
+1. **Limit first.** The amount is checked against your own principle (e.g. ¥10,000 per person at a time).
+2. **Terms before money moves.** A return date, or two smaller parts, which the borrower can propose.
+3. **In writing.** A drafted message asks for a reply of "OK", and you mark it agreed. Send the money by bank transfer or PayPay so Cost records it.
+4. **Reminders.** Ethics drafts reminders for 3 days before, the day itself, and 3 days after. You send them; Ethics never contacts anyone.
+5. **Late step decided in advance:** ask once for a new date, pause further lending, or close it as a gift.
+6. **Older open loans** get their own conversation. "Ask for money back" in Practice rehearses it, and the Ledger links to it.
+
+Entry points: after **Decide** on a lending option (A/B) → Lend with terms. After a declining option (C/D) → Practice.
+The Ledger row "Agree a plan for the ¥55,000" → Practice. Today → Practice card. Review drift → Practise this moment.
 
 ## Visual system
 

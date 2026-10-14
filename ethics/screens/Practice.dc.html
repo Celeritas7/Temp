@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ethics — Practice</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0C0C0E}
+a{color:#C9A54A}a:hover{color:#E0BF66}
+.app{width:390px;height:844px;box-sizing:border-box;background:#0C0C0E;color:#ECEAE4;font-family:'IBM Plex Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden;font-size:15px;line-height:1.4}
+.scroll{flex:1;overflow-y:auto;padding:4px 16px 24px;display:flex;flex-direction:column;gap:22px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A877F}
+.card{background:#141417;border:1px solid #5A4A22;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.h{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8A877F;margin-bottom:4px}
+.input{width:100%;box-sizing:border-box;background:#0F0F12;border:1px solid #3A3A40;border-radius:8px;color:#ECEAE4;font:inherit;font-size:16px;padding:12px;min-height:96px;resize:none}
+.input:focus{outline:2px solid #C9A54A;outline-offset:1px}
+.tog{width:100%;display:flex;gap:10px;align-items:center;text-align:left;background:none;border:0;border-top:1px solid #1F1F24;padding:8px 0;min-height:44px;color:#D6D3CC;font:inherit;font-size:14px;cursor:pointer}
+.box{width:20px;height:20px;border-radius:5px;border:1.5px solid #5A5A62;flex:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+.box.on{background:#C9A54A;border-color:#C9A54A}
+.linkbtn{background:none;border:0;padding:0;min-height:36px;color:#C9A54A;font:inherit;font-size:14px;cursor:pointer;align-self:flex-start}
+.sample{font-size:14px;color:#C8C5BE;border-left:0;background:#0F0F12;border-radius:8px;padding:10px 12px}
+.btn{min-height:48px;border-radius:8px;font:inherit;font-weight:600;font-size:15px;border:0;padding:0 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;cursor:pointer;box-sizing:border-box}
+.btn.primary{background:#C9A54A;color:#151107}
+.btn.primary:disabled{background:#3A3528;color:#8A877F;cursor:not-allowed}
+.sess{width:100%;text-align:left;background:none;border:0;border-top:1px solid #1F1F24;padding:12px 0;color:inherit;font:inherit;cursor:pointer;display:flex;gap:12px;align-items:flex-start;min-height:44px}
+.sess.on .st{color:#C9A54A}
+.st{font-weight:500}
+.sub{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#A9A69E;margin-top:3px;display:block}
+.min{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#A9A69E;flex:none;padding-top:2px}
+.tabbar{display:flex;border-top:1px solid #222226;background:#0F0F12;padding:4px 4px 12px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;font-size:11px;color:#8A877F;text-decoration:none}
+.tab:hover{color:#ECEAE4}
+</style>
+</helmet>
+<div class="app">
+  <header style="padding: 20px 16px 8px">
+    <div class="eyebrow">Short sessions · from your own decisions</div>
+    <h1 style="margin: 4px 0 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Practice</h1>
+    <p style="margin: 6px 0 0; font-size: 13px; color: #A9A69E">Rehearse the lines that are hard to find on the spot. Nothing is scored. You check your own line against your charter.</p>
+  </header>
+
+  <main class="scroll">
+    <sc-if value="{{running}}" hint-placeholder-val="{{true}}">
+      <section class="card" aria-labelledby="cur">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px">
+          <h2 id="cur" style="margin: 0; font-size: 17px; font-weight: 600">{{cur.title}}</h2>
+          <span class="min">{{cur.mins}}</span>
+        </div>
+        <div>
+          <div class="h">Situation · {{cur.from}}</div>
+          <div style="font-size: 14px">{{cur.situation}}</div>
+        </div>
+        <div>
+          <label class="h" for="line" style="display: block">Your line, as you'd say it</label>
+          <textarea id="line" class="input" placeholder="Write it the way you would say it" value="{{text}}" onChange="{{setText}}"></textarea>
+        </div>
+        <div>
+          <div class="h">Check it yourself</div>
+          <sc-for list="{{checks}}" as="c" hint-placeholder-count="4">
+            <button class="tog" type="button" aria-pressed="{{c.pressed}}" onClick="{{c.toggle}}">
+              <span class="{{c.cls}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#151107" stroke-width="3.5" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+              <span style="flex: 1">{{c.label}}</span>
+            </button>
+          </sc-for>
+        </div>
+        <button class="linkbtn" type="button" onClick="{{toggleSample}}">{{sampleLabel}}</button>
+        <sc-if value="{{showSample}}" hint-placeholder-val="{{false}}">
+          <div class="sample">“{{cur.sample}}”<div class="sub">One way to say it, not the right way.</div></div>
+        </sc-if>
+        <button class="btn primary" type="button" disabled="{{empty}}" onClick="{{finish}}">Save line for real use</button>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{done}}" hint-placeholder-val="{{false}}">
+      <section class="card" aria-labelledby="saved">
+        <h2 id="saved" class="eyebrow" style="margin: 0">Saved · {{cur.title}}</h2>
+        <div style="font-size: 15px">“{{text}}”</div>
+        <div style="font-size: 13px; color: #A9A69E">{{cur.after}}</div>
+        <button class="linkbtn" type="button" onClick="{{again}}">Practise again</button>
+      </section>
+    </sc-if>
+
+    <section aria-labelledby="all">
+      <h2 id="all" class="eyebrow" style="margin: 0 0 4px">Sessions</h2>
+      <sc-for list="{{sessions}}" as="x" hint-placeholder-count="5">
+        <button class="{{x.cls}}" type="button" aria-pressed="{{x.pressed}}" onClick="{{x.pick}}">
+          <span style="flex: 1"><span class="st">{{x.title}}</span><span class="sub">{{x.why}}</span></span>
+          <span class="min">{{x.mins}}</span>
+        </button>
+      </sc-for>
+      <p style="margin: 10px 0 0; font-size: 12px; color: #8A877F">Sessions come from your charter, your ledger and your own drifts. You pick which to do. None is required.</p>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="Sections">
+    <a class="tab" href="Main.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg>Today</a>
+    <a class="tab" href="DecisionCheck.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16M7 20h10M4 7h16M4 7l-2.5 6h5zM20 7l-2.5 6h5z"></path></svg>Check</a>
+    <a class="tab" href="Charter.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"></path></svg>Charter</a>
+    <a class="tab" href="Ledger.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16v14H4zM12 5v14M7 9h2M7 13h2M15 9h2M15 13h2"></path></svg>Ledger</a>
+    <a class="tab" href="Review.dc.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2"></path></svg>Review</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const data = [
+      { id: 'back', title: 'Ask for money back', mins: '4 min', why: 'Ledger · ¥55,000 open with Kenji', from: 'from your Ledger',
+        situation: 'Kenji has ¥55,000 from three loans (Mar–Aug). None has come back. You want a plan, not an argument.',
+        checks: ['Names the amount', 'Asks for a date or a monthly amount', 'About the money, not about Kenji', 'Leaves room for a small first payment'],
+        sample: 'Kenji, the ¥55,000 from March to August is still open. Can we agree a plan? Even ¥5,000 a month from 25 Nov works for me.',
+        after: 'Linked to Kenji in your Ledger. Ethics will show this line the next time you open a check involving him.' },
+      { id: 'terms', title: 'Set terms before lending', mins: '3 min', why: 'Charter · “I lend only what I can afford…”', from: 'from your Charter',
+        situation: 'A friend asks to borrow money. Before you say yes, you agree the amount, the date and how it is written down.',
+        checks: ['States the amount', 'Asks for a return date', 'Asks for a written OK', 'Said before the money moves'],
+        sample: 'I can lend ¥10,000. Can you return it by the 25th? Reply OK so we both have it written down.',
+        after: 'Used as the default draft on the Lend with terms screen.' },
+      { id: 'no', title: 'Say no once, plainly', mins: '3 min', why: 'done 2× · last 30 Sep', from: 'general',
+        situation: 'Someone asks for something you have decided not to give. You want to say no once, without a long explanation.',
+        checks: ['One sentence', 'No promise you won\'t keep', 'True', 'No comment on the person'],
+        sample: 'Not this time. I\'ve decided not to lend more until the earlier amount is settled.',
+        after: 'Saved to your lines.' },
+      { id: 'group', title: 'Hold your limit under group pressure', mins: '4 min', why: 'Calendar · year-end party, Fri 23 Oct', from: 'from your Calendar',
+        situation: 'At the party, colleagues keep topping up your glass and urging you to drink more than you want.',
+        checks: ['Short and friendly', 'Repeatable word for word', 'No apology needed', 'Doesn\'t make it about them'],
+        sample: 'I\'m good with this one, thanks. Oolong for me next.',
+        after: 'Ethics will show this line on the morning of Fri 23 Oct.' },
+      { id: 'truth', title: 'Answer a direct question truthfully', mins: '3 min', why: 'Review · your drift on 18 Sep', from: 'from your Review',
+        situation: 'A client asks, in front of others, whether the report is done. It isn\'t started.',
+        checks: ['Answers the question asked', 'Gives a real date', 'No blame on others', 'Short'],
+        sample: 'Not yet. It isn\'t started. You\'ll have it Thursday.',
+        after: 'Linked to “I tell the truth when asked directly.”' }
+    ];
+    const curId = s.cur || 'back';
+    const cur = data.find(d => d.id === curId);
+    const ticked = s.ticked || {};
+    const text = s.text || '';
+    const checks = cur.checks.map((label, i) => ({
+      label, cls: ticked[i] ? 'box on' : 'box', pressed: ticked[i] ? 'true' : 'false',
+      toggle: () => this.setState({ ticked: Object.assign({}, ticked, { [i]: !ticked[i] }) })
+    }));
+    const sessions = data.map(d => ({
+      title: d.title, why: d.why, mins: d.mins,
+      cls: d.id === curId ? 'sess on' : 'sess', pressed: d.id === curId ? 'true' : 'false',
+      pick: () => this.setState({ cur: d.id, text: '', ticked: {}, sample: false, done: false })
+    }));
+    return {
+      cur, checks, sessions, text,
+      running: !s.done, done: !!s.done,
+      empty: !text.trim(),
+      showSample: !!s.sample,
+      sampleLabel: s.sample ? 'Hide sample line' : 'See a sample line',
+      toggleSample: () => this.setState({ sample: !s.sample }),
+      setText: (e) => this.setState({ text: e.target.value }),
+      finish: () => this.setState({ done: true }),
+      again: () => this.setState({ done: false, text: '', ticked: {}, sample: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

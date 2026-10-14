@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ethics — Lend with terms</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0C0C0E}
+a{color:#C9A54A}a:hover{color:#E0BF66}
+.app{width:390px;height:844px;box-sizing:border-box;background:#0C0C0E;color:#ECEAE4;font-family:'IBM Plex Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden;font-size:15px;line-height:1.4}
+.scroll{flex:1;overflow-y:auto;padding:4px 16px 24px;display:flex;flex-direction:column;gap:22px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A877F}
+.step{display:flex;flex-direction:column;gap:8px}
+.sn{font-family:'IBM Plex Mono',ui-monospace,monospace;color:#C9A54A}
+.card{background:#141417;border:1px solid #26262B;border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.kv{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:#B4B1A9}
+.kv b{font-weight:500;color:#ECEAE4}
+.seg{display:flex;background:#141417;border:1px solid #26262B;border-radius:9px;padding:3px;gap:2px}
+.segb{flex:1;min-height:40px;border:0;border-radius:7px;background:transparent;color:#A9A69E;font:inherit;font-size:14px;cursor:pointer}
+.segb.on{background:#26231A;color:#E8CB78}
+.input{width:100%;box-sizing:border-box;background:#141417;border:1px solid #3A3A40;border-radius:8px;color:#ECEAE4;font:inherit;font-size:15px;padding:12px;min-height:132px;resize:none;line-height:1.45}
+.input:focus{outline:2px solid #C9A54A;outline-offset:1px}
+.tog{width:100%;display:flex;gap:10px;align-items:center;text-align:left;background:none;border:0;border-top:1px solid #1F1F24;padding:10px 0;min-height:44px;color:#D6D3CC;font:inherit;font-size:14px;cursor:pointer}
+.box{width:20px;height:20px;border-radius:5px;border:1.5px solid #5A5A62;flex:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+.box.on{background:#C9A54A;border-color:#C9A54A}
+.radio{width:20px;height:20px;border-radius:10px;border:1.5px solid #5A5A62;flex:none;box-sizing:border-box}
+.radio.on{border:6px solid #C9A54A}
+.btn{min-height:48px;border-radius:8px;font:inherit;font-weight:600;font-size:15px;border:0;padding:0 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;cursor:pointer;box-sizing:border-box}
+.btn.primary{background:#C9A54A;color:#151107}
+.btn.ghost{background:transparent;color:#ECEAE4;border:1px solid #3A3A40;min-height:40px;font-size:14px}
+</style>
+</helmet>
+<div class="app">
+  <header style="padding: 16px 16px 8px; display: flex; justify-content: space-between; align-items: center">
+    <a href="DecisionOptions.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; gap: 4px; text-decoration: none">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Options
+    </a>
+    <span class="eyebrow">Before money moves</span>
+  </header>
+
+  <main class="scroll">
+    <div>
+      <div class="eyebrow">Lend with terms · Kenji</div>
+      <h1 style="margin: 4px 0 0; font-size: 24px; font-weight: 600">Agree the return before you lend</h1>
+      <p style="margin: 6px 0 0; font-size: 13px; color: #A9A69E">Ethics can't make anyone repay. Terms that are clear, written down and agreed before the money moves make repayment more likely, and asking later becomes easier.</p>
+    </div>
+
+    <section class="step" aria-labelledby="s1">
+      <h2 id="s1" class="eyebrow" style="margin: 0"><span class="sn">1</span> · Amount</h2>
+      <div class="card">
+        <div class="kv"><span>Lend</span><b>¥10,000</b></div>
+        <div class="kv"><span>Your line, from your charter</span><b>¥10,000 per person at a time</b></div>
+        <div class="kv"><span>Already open with Kenji</span><b>¥55,000</b></div>
+      </div>
+    </section>
+
+    <section class="step" aria-labelledby="s2">
+      <h2 id="s2" class="eyebrow" style="margin: 0"><span class="sn">2</span> · When it comes back</h2>
+      <div class="seg" role="group" aria-label="Repayment">
+        <sc-for list="{{plans}}" as="p" hint-placeholder-count="2">
+          <button class="{{p.cls}}" type="button" aria-pressed="{{p.pressed}}" onClick="{{p.pick}}">{{p.label}}</button>
+        </sc-for>
+      </div>
+      <div class="card">
+        <sc-for list="{{schedule}}" as="r" hint-placeholder-count="1">
+          <div class="kv"><span>{{r.date}}</span><b>{{r.amt}}</b></div>
+        </sc-for>
+        <div style="font-size: 12px; color: #A9A69E">Let Kenji pick the date if these don't work. A date he chose is one he can keep.</div>
+      </div>
+    </section>
+
+    <section class="step" aria-labelledby="s3">
+      <h2 id="s3" class="eyebrow" style="margin: 0"><span class="sn">3</span> · Agree it in writing</h2>
+      <label for="msg" class="mono" style="font-size: 12px; color: #A9A69E">Draft message, edit freely</label>
+      <textarea id="msg" class="input" value="{{msg}}" onChange="{{setMsg}}"></textarea>
+      <div style="display: flex; gap: 8px">
+        <button class="btn ghost" type="button" onClick="{{copy}}">{{copyLabel}}</button>
+        <button class="btn ghost" type="button" onClick="{{agree}}">{{agreeLabel}}</button>
+      </div>
+      <div style="font-size: 12px; color: #A9A69E">Send the money by bank transfer or PayPay, not cash, so Cost has a record of it.</div>
+    </section>
+
+    <section class="step" aria-labelledby="s4">
+      <h2 id="s4" class="eyebrow" style="margin: 0"><span class="sn">4</span> · Reminders · Ethics drafts, you send</h2>
+      <div>
+        <sc-for list="{{reminders}}" as="m" hint-placeholder-count="3">
+          <button class="tog" type="button" aria-pressed="{{m.pressed}}" onClick="{{m.toggle}}">
+            <span class="{{m.cls}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#151107" stroke-width="3.5" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+            <span style="flex: 1">{{m.label}}</span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="step" aria-labelledby="s5">
+      <h2 id="s5" class="eyebrow" style="margin: 0"><span class="sn">5</span> · If it's late, decide now</h2>
+      <p style="margin: 0; font-size: 13px; color: #A9A69E">Choosing the next step now keeps it about the money, so later you don't react to the person.</p>
+      <div>
+        <sc-for list="{{late}}" as="l" hint-placeholder-count="3">
+          <button class="tog" type="button" aria-pressed="{{l.pressed}}" onClick="{{l.pick}}">
+            <span class="{{l.cls}}"></span>
+            <span style="flex: 1">{{l.label}}</span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <div class="card">
+      <div style="font-size: 14px">The earlier ¥55,000 is a separate conversation.</div>
+      <a href="Practice.dc.html" class="btn ghost" style="align-self: flex-start">Rehearse asking for it back</a>
+    </div>
+  </main>
+
+  <div style="padding: 12px 16px 20px; border-top: 1px solid #222226; background: #0F0F12">
+    <a class="btn primary" href="Ledger.dc.html" style="width: 100%">Save terms to Ledger</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const plan = s.plan || 'one';
+    const rem = s.rem || { before: true, day: true, after: true };
+    const lateId = s.late || 'ask';
+    const plans = [['one', 'One date'], ['two', 'Two parts']].map(([id, label]) => ({
+      label, cls: plan === id ? 'segb on' : 'segb', pressed: plan === id ? 'true' : 'false',
+      pick: () => this.setState({ plan: id })
+    }));
+    const schedule = plan === 'one'
+      ? [{ date: 'Wed 25 Nov', amt: '¥10,000' }]
+      : [{ date: 'Wed 25 Nov', amt: '¥5,000' }, { date: 'Fri 25 Dec', amt: '¥5,000' }];
+    const when = plan === 'one' ? 'by 25 Nov' : '¥5,000 on 25 Nov and ¥5,000 on 25 Dec';
+    const defMsg = 'Kenji, I can lend ¥10,000. Can you return it ' + when + '? Reply OK if that works, so we both have it in writing.\n\nThe earlier ¥55,000 is still open too. Let\'s agree a plan for that separately.';
+    const msg = s.msg !== undefined && s.plan === s.msgPlan ? s.msg : defMsg;
+    const reminders = [['before', '3 days before: a short heads-up'], ['day', 'On the day: “Today is the 25th, as agreed.”'], ['after', '3 days after, if not back: ask for a new date']].map(([id, label]) => ({
+      label, cls: rem[id] ? 'box on' : 'box', pressed: rem[id] ? 'true' : 'false',
+      toggle: () => this.setState({ rem: Object.assign({}, rem, { [id]: !rem[id] }) })
+    }));
+    const late = [['ask', 'Ask once, plainly, for a new date'], ['pause', 'No further lending until this is settled'], ['gift', 'Let it go and close it as a gift']].map(([id, label]) => ({
+      label, cls: lateId === id ? 'radio on' : 'radio', pressed: lateId === id ? 'true' : 'false',
+      pick: () => this.setState({ late: id })
+    }));
+    return {
+      plans, schedule, msg, reminders, late,
+      setMsg: (e) => this.setState({ msg: e.target.value, msgPlan: plan }),
+      copy: () => { try { navigator.clipboard.writeText(msg); } catch (e) {} this.setState({ copied: true }); },
+      copyLabel: s.copied ? 'Copied' : 'Copy for LINE',
+      agree: () => this.setState({ agreed: !s.agreed }),
+      agreeLabel: s.agreed ? 'Agreed · 09:40' : 'Mark as agreed'
+    };
+  }
+}
+</script>
+</body>
+</html>

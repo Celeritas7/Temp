@@ -1,30 +1,123 @@
 {
   "v": 3,
-  "createdOnFiles": {"v": 1, "at": "2026-10-14T03:20:00Z"},
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-14T03:20:00Z"
+  },
   "title": "Ethics — mobile app",
-  "launch": {"view": "canvas"},
+  "launch": {
+    "view": "canvas"
+  },
   "pages": [],
   "boards": {
-    "Main.dc.html": {"x": 0, "y": 0, "w": 390, "h": 844, "title": "1 · Today", "is_interactive": true, "radius": 28},
-    "DecisionCheck.dc.html": {"x": 470, "y": 0, "w": 390, "h": 844, "title": "2a · Decision Check — describe", "is_interactive": true, "radius": 28},
-    "DecisionOptions.dc.html": {"x": 940, "y": 0, "w": 390, "h": 844, "title": "2b · Decision Check — options & decide", "is_interactive": true, "radius": 28},
-    "Uncovered.dc.html": {"x": 1410, "y": 0, "w": 390, "h": 844, "title": "2c · Not covered by the charter", "is_interactive": true, "radius": 28},
-    "Charter.dc.html": {"x": 0, "y": 1244, "w": 390, "h": 844, "title": "3 · Values Charter", "is_interactive": true, "radius": 28},
-    "Ledger.dc.html": {"x": 470, "y": 1244, "w": 390, "h": 844, "title": "4 · Commitments & Ledger", "is_interactive": true, "radius": 28},
-    "Review.dc.html": {"x": 940, "y": 1244, "w": 390, "h": 844, "title": "5 · Review", "is_interactive": true, "radius": 28}
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "1 · Today",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "DecisionCheck.dc.html": {
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "2a · Decision Check — describe",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "DecisionOptions.dc.html": {
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "2b · Decision Check — options & decide",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Uncovered.dc.html": {
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "2c · Not covered by the charter",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Charter.dc.html": {
+      "x": 0,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "3 · Values Charter",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Ledger.dc.html": {
+      "x": 470,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "4 · Commitments & Ledger",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Review.dc.html": {
+      "x": 940,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "5 · Review",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "LendTerms.dc.html": {
+      "x": 1880,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "2d · Lend with terms",
+      "is_interactive": true,
+      "radius": 28
+    },
+    "Practice.dc.html": {
+      "x": 1410,
+      "y": 1244,
+      "w": 390,
+      "h": 844,
+      "title": "6 · Practice sessions",
+      "is_interactive": true,
+      "radius": 28
+    }
   },
   "order": [
     "Main.dc.html",
     "DecisionCheck.dc.html",
     "DecisionOptions.dc.html",
     "Uncovered.dc.html",
+    "LendTerms.dc.html",
     "Charter.dc.html",
     "Ledger.dc.html",
-    "Review.dc.html"
+    "Review.dc.html",
+    "Practice.dc.html"
   ],
   "notes": {
-    "row1": {"x": 0, "y": -300, "text": "Ethics · Today and the Decision Check", "kind": "title1", "maxW": 1800},
-    "row2": {"x": 0, "y": 944, "text": "Charter, Ledger, Review", "kind": "title1", "maxW": 1330}
+    "row1": {
+      "x": 0,
+      "y": -300,
+      "text": "Ethics · Today and the Decision Check",
+      "kind": "title1",
+      "maxW": 2270
+    },
+    "row2": {
+      "x": 0,
+      "y": 944,
+      "text": "Charter, Ledger, Review, Practice",
+      "kind": "title1",
+      "maxW": 1800
+    }
   },
   "designSystems": []
 }

@@ -120,6 +120,12 @@ a{color:#C9A54A}a:hover{color:#E0BF66}
         </div>
         <button class="btn ghost" type="button" style="min-height: 40px; font-size: 14px; padding: 0 12px" onClick="{{undo}}">Undo</button>
       </div>
+      <sc-if value="{{lends}}" hint-placeholder-val="{{false}}">
+        <a class="btn primary" href="LendTerms.dc.html" style="width: 100%">Set repayment terms before you send</a>
+      </sc-if>
+      <sc-if value="{{noLend}}" hint-placeholder-val="{{false}}">
+        <a class="btn ghost" href="Practice.dc.html" style="width: 100%">Rehearse what you'll say · 3 min</a>
+      </sc-if>
     </sc-if>
   </div>
 </div>
@@ -166,6 +172,8 @@ class Component extends DCLogic {
     return {
       values, options, reason,
       open: !s.decided, decided: !!s.decided,
+      lends: !!s.decided && (s.pick === 'A' || s.pick === 'B'),
+      noLend: !!s.decided && (s.pick === 'C' || s.pick === 'D'),
       pickLabel: s.pick ? 'Option ' + s.pick + ' — why?' : 'Pick an option, then give one line why',
       cantDecide: !s.pick || !reason.trim(),
       picked: s.pick || '',
